@@ -1,0 +1,7 @@
+controllers:
+    resource: ../src/Controller/
+    type: attribute
+
+app_countries_list:
+    path: /index
+    controller: App\Controller\IndexController::indexAction
