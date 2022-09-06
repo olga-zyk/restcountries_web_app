@@ -1,6 +1,55 @@
 {% include 'base.html.twig' %}
+
 <div>
-    {% for country in countries %}
-        {% dump(country) %}
-    {% endfor %}
+    <div>
+        <a href="{{ path('app_countries_list') }}">Main page</a>
+        <br/>
+        <a href="{{ path('app_countries_list', {'region': 'Europe'}) }}">Show countries from Europe</a>
+        <br/>
+        <a href="{{ path('app_countries_list', {'country': 'Lithuania'}) }}">Show countries smaller than Lithuania</a>
+        <br/>
+        <span>Filter by region in:</span>
+        <a href="{{ path('app_countries_list', {'sort': 'region', 'order': 'asc'}) }}">ascending</a>
+        <span>/</span>
+        <a href="{{ path('app_countries_list', {'sort': 'region', 'order': 'desc'}) }}">descending</a>
+        <span>order</span>
+        <br/>
+        <span>Filter by population in:</span>
+        <a href="{{ path('app_countries_list', {'sort': 'population', 'order': 'asc'}) }}">ascending</a>
+        <span>/</span>
+        <a href="{{ path('app_countries_list', {'sort': 'population', 'order': 'desc'}) }}">descending</a>
+        <span>order</span>
+    </div>
+    <br />
+    <div>
+        {# total items count #}
+        <div class="count">
+            <span>Total number of countries:</span>
+            {{ pagination.getTotalItemCount }}
+        </div>
+        <br />
+
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Region</th>
+                <th>Population</th>
+                <th>Area</th>
+            </tr>
+            {% for country in pagination %}
+                <tr>
+                    <td>{{ country.name.common }}</td>
+                    <td>{{ country.region }}</td>
+                    <td>{{ country.population }}</td>
+                    <td>{{ country.area }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <br />
+
+        {# display navigation #}
+        <div class="navigation" style="margin: auto; width: 50%">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    </div>
 </div>
